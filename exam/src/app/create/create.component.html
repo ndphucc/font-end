@@ -1,0 +1,108 @@
+<div class="container">
+  <div class="row ">
+    <h1 class="d-flex justify-content-center">Sửa bệnh án</h1>
+  </div>
+  <form [formGroup]="benhAnForm" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col-2">Tên bệnh nhân</div>
+      <div class="col-7">
+        <select class="form-control" formControlName="tenBenhNhan">
+          <option *ngFor="let item of benhNhans" [value]="item.id">{{item.name}}</option>
+        </select>
+        <p class="text-danger"
+           *ngIf="benhAnForm.get('tenBenhNhan').hasError('required') && (benhAnForm.get('tenBenhNhan').touched||submit)">
+          bắt buộc nhập!
+        </p>
+        <p class="text-danger"
+           *ngIf="benhAnForm.get('tenBenhNhan').hasError('pattern') && (benhAnForm.get('tenBenhNhan').touched||submit)">
+          Không được chứa số
+        </p>
+      </div>
+    </div>
+    <fieldset formGroupName="ngay">
+      <div class="row">
+        <div class="col-2">Ngày nhập viện</div>
+        <div class="col-7">
+          <input type="date" class="form-control" formControlName="ngayNhapVien">
+          <p class="text-danger"
+             *ngIf="benhAnForm.get('ngay').get('ngayNhapVien').errors && (benhAnForm.get('ngay').get('ngay').touched||submit)">
+            bắt buộc nhập!
+          </p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">Ngày ra viện</div>
+        <div class="col-7">
+          <input type="date" class="form-control" formControlName="ngayRaVien">
+          <p class="text-danger"
+             *ngIf="benhAnForm.get('ngay').get('ngayRaVien').errors && (benhAnForm.get('ngay').get('ngay').touched||submit)">
+            bắt buộc nhập!
+          </p>
+          <p class="text-danger"
+             *ngIf="benhAnForm.get('ngay').hasError('dateValidator') && (benhAnForm.get('ngay').touched||submit)">
+            Ngày ra viện phải sau ngày nhập viện!
+          </p>
+        </div>
+      </div>
+    </fieldset>
+    <div class="row">
+      <div class="col-2">Lý do nhập viện</div>
+      <div class="col-7">
+        <input type="text" class="form-control" formControlName="lyDoNhapVien">
+        <p class="text-danger"
+           *ngIf="benhAnForm.get('lyDoNhapVien').errors && (benhAnForm.get('lyDoNhapVien').touched||submit)">
+          bắt buộc nhập!
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">Phương pháp điều trị</div>
+      <div class="col-7">
+        <input type="text" class="form-control" formControlName="phuongPhapDieuTri">
+        <p class="text-danger"
+           *ngIf="benhAnForm.get('phuongPhapDieuTri').errors && (benhAnForm.get('phuongPhapDieuTri').touched||submit)">
+          bắt buộc nhập!
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">Bác sĩ điều trị</div>
+      <div class="col-7">
+        <input type="text" class="form-control" formControlName="bacSiDieuTri">
+        <p class="text-danger"
+           *ngIf="benhAnForm.get('bacSiDieuTri').errors && (benhAnForm.get('bacSiDieuTri').touched||submit)">
+          bắt buộc nhập!
+        </p>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-2" style="width: 200px"></div>
+      <div class="col-3">
+        <button type="submit" class="btn btn-success">Sửa</button>
+      </div>
+      <div class="col-3">
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#exampleModal">Trở về danh sách</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Trở về</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Xác nhận trở về danh sách
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" routerLink="">Trở về
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

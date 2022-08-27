@@ -1,0 +1,73 @@
+<div class="container-fluid">
+  <div class="row ">
+    <h3 class="d-flex justify-content-center">Danh sách bệnh án</h3>
+  </div>
+  <div class="row">
+    <Buton routerLink="/create" class="btn btn-success">Thêm mới</Buton>
+  </div>
+  <table class="table table-info">
+    <thead>
+    <tr>
+      <th>Stt</th>
+      <th>Mã bệnh án</th>
+      <th>Tên bệnh nhân</th>
+      <th>Ngày nhập viện</th>
+      <th>Ngày ra viện</th>
+      <th>Lý do nhập viện</th>
+      <th>Phương pháp điều trị</th>
+      <th>Bác sĩ điều trị</th>
+      <th colspan="2">Tác vụ</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of dachSachBenhAn,index as i">
+      <td>{{i+1}}</td>
+      <td>{{item.benhNhan.id}}</td>
+      <td>{{item.benhNhan.name}}</td>
+      <td>{{item.ngayNhapVien|date :'dd/MM/yyyy'}}</td>
+      <td>{{item.ngayRaVien|date :'dd/MM/yyyy'}}</td>
+      <td>{{item.lyDo}}</td>
+      <td>{{item.phuongPhapDieuTri}}</td>
+      <td>{{item.bacSiDieuTri}}</td>
+      <td><a [routerLink]="['/edit',item.id]">
+        <button class="btn btn-success">Edit</button>
+      </a></td>
+      <td>
+        <button class="btn btn-danger" style="background-color: #dc3545" data-bs-toggle="modal"
+                (click)="showModal(item)"
+                data-bs-target="#exampleModal">
+          Delete
+        </button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-danger" id="exampleModalLabel">warning</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          Do you want to delete: <span *ngIf="benhAnBiXoa">{{benhAnBiXoa.id}}</span>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="xoaBenhAn()">Save
+            changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item" *ngIf="previous" (click)="previousPage()"><a class="page-link" >Previous</a></li>
+    <li class="page-item"><a class="page-link" >{{page+1}}</a></li>
+    <li class="page-item" *ngIf="next" (click)="nextPage()"><a class="page-link">Next</a></li>
+  </ul>
+</nav>
+
